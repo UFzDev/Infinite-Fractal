@@ -1,92 +1,57 @@
-# 🚀 Three.js + TypeScript Starter
+# ♾️ Infinite Fractal Explorer
 
-Este proyecto es una base de Three.js configurada con **Vite**, **TypeScript** y **Bun**.
-
----
-
-## 📜 Créditos
-Este proyecto está basado en el repositorio original de [CastDev-j/threejs-ts-starter](https://github.com/CastDev-j/threejs-ts-starter).
+Un explorador de fractales de alto rendimiento basado en **GPU**, diseñado para ofrecer una experiencia visual infinita y matemáticamente estable. Utiliza conjuntos de Julia con un mapeo Log-Polar para lograr un bucle de zoom fluido sin fin.
 
 ---
 
-## 📦 Instalación
+## ✨ Características Principales
 
-Para configurar el proyecto desde cero, primero asegúrate de tener [Bun](https://bun.sh/) instalado en tu sistema.
+- **Bucle de Zoom Infinito**: Gracias al mapeo log-polar y autosimilitud forzada, la cámara navega eternamente dentro de la geometría.
+- **Estabilidad Dinámica**: Implementa un **Solucionador de Punto Fijo (Newton)** en tiempo real para estabilizar la rotación y escala del fractal según los parámetros de entrada.
+- **Renderizado por GPU**: Shaders de fragmentos optimizados (GLSL) para un rendimiento de 60 FPS en resoluciones modernas.
+- **Control Total**: Interfaz interactiva para manipular la constante de Julia ($c$), la potencia del fractal ($n$) y la estética del color.
 
-1. **Instalar dependencias:**
+---
+
+## 🛠️ Stack Tecnológico
+
+- **Core**: [Three.js](https://threejs.org/) & WebGL
+- **Lenguaje**: TypeScript (Strict Mode)
+- **Shaders**: GLSL (Vertex & Fragment)
+- **Build Tool**: [Vite](https://vitejs.dev/)
+- **Runtime**: [Bun](https://bun.sh/)
+- **UI**: lil-gui
+
+---
+
+## 🚀 Inicio Rápido
+
+Asegúrate de tener [Bun](https://bun.sh/) instalado.
+
+1. **Clonar e instalar:**
    ```bash
    bun install
    ```
-2. **Arrancar el servidor de desarrollo:**
+
+2. **Ejecutar en desarrollo:**
    ```bash
    bun run dev
    ```
 
----
-
-## 🎮 Cómo usar este Proyecto
-
-1. **Controlar la Experiencia:** En `src/lib/Experience.ts` se añaden objetos, luces y se programa la lógica principal.
-2. **Punto de Entrada:** `src/index.ts` solo se encarga de arrancar la aplicación.
-3. **Añadir Interfaz:** En `index.html` se añaden botones o textos 2D que flotarán sobre el canvas 3D.
-4. **Publicar:** Cuando termines, corre `bun run build` para generar la carpeta `dist/` lista para subirla a cualquier hosting.
+3. **Compilar para producción:**
+   ```bash
+   bun run build
+   ```
 
 ---
 
-## 🛠️ Archivos Modificables
+## 🧠 El Corazón del Motor
 
-Son los que definen la experiencia del usuario.
-
-### 🔵 `src/index.ts`
-Es el punto de arranque (Bootstrap). No deberías necesitar tocarlo mucho; su única misión es inicializar la clase `Experience`.
-
-### 🟠 `src/lib/Experience.ts`
-Este es el **corazón creativo**. Aquí se conectan los objetos, las luces y la lógica de movimiento.
-- **¿Qué más se puede agregar aquí?**
-    - **Nuevos Actores:** Esferas, planos, o modelos 3D complejos cargados externamente.
-    - **Lógica de Juego:** Contadores de puntos, colisiones entre objetos.
-    - **Interactividad:** Que el cubo cambie de color cuando hagas clic sobre él o se mueva con las flechas del teclado.
-    - **Post-procesamiento:** Efectos de cine como desenfoque (blur) o brillo (bloom).
-
-### 🟢 `index.html`
-Es el esqueleto. Usado principalmente para elementos que están "fuera" del mundo 3D.
-- **¿Qué más se puede agregar aquí?**
-    - **HUD/UI:** Un menú de pausa, una barra de carga o un letrero de "Game Over".
-    - **Fuentes Externas:** Enlaces a Google Fonts para que tus textos se vean increíbles.
-    - **Scripts de análisis:** Como Google Analytics o Pixel de Meta.
-
-### 🔴 `global.css`
-Aquí esta cargado Tailwind CSS y tus reglas de diseño global.
-- **¿Qué más se puede agregar aquí?**
-    - **Variables de Color:** Define tus propios colores (ej: `--color-primary: #ff00ff`).
-    - **Animaciones CSS:** Efectos para tus botones de la interfaz 2D.
-    - **Cursores personalizados:** Cambiar el puntero del ratón por una mira o algo más temático.
+El proyecto utiliza una técnica avanzada de **mapeo logarítmico** para transformar la divergencia del fractal en un espacio de zoom constante. El archivo `src/lib/Experience.ts` contiene el motor principal que calcula los parámetros de rotación y escala necesarios para que el bucle sea imperceptible al ojo humano.
 
 ---
 
-## 🏗️ La Capa de Abstracción
+## 📜 Licencia
 
-### 📂 `src/lib/`
-Aquí van las herramientas reutilizables.
-- **¿Qué más se puede agregar aquí?**
-    - **`InputManager.ts`:** Un archivo para centralizar los controles de teclado/gamepad.
-    - **`AssetLoader.ts`:** Una herramienta para cargar muchas texturas al mismo tiempo con una barra de progreso.
-    - **`MathUtils.ts`:** Funciones propias para calcular trayectorias o curvas puntuales.
-
----
-
-## 🚫 Archivos que "NO SE DEBEN MODIFICAR"
-
-Modificarlos sin conocimiento puede romper el proyecto.
-
-1.  **`src/lib/renderer.ts`**: Es el motor de renderizado. Ya maneja el resize, la cámara y los FPS.
-2.  **`bun.lock` / `package-lock.json`**: Son los registros de seguridad de las librerías. No se editan a mano, solo mediante comandos de terminal.
-3.  **`tsconfig.json`**: Las reglas de TypeScript.
-4.  **`vite.config.ts`**: Si se modifica, Tailwind o Three.js podrían dejar de compilar.
-5.  **`vite-env.d.ts`**: Solo sirve para que el editor de código no muestre errores falsos.
-
----
-
-## 🚀 Comandos Rápidos
-- `bun run dev`: Arranca el estudio de grabación (Servidor local).
-- `bun run build`: Prepara el proyecto para publicarlo en internet.
+Desarrollado con pasión por el arte generativo y la computación gráfica.
+Uso libre bajo la licencia MIT.
